@@ -33,5 +33,31 @@ var app = new Vue({
 				sizeEU: '46-49'
 			},
 		],
+		variants: [
+			{
+				variantID: 2234,
+				variantColor: 'green',
+				variantImage: './ast/vmSocks-green.jpg'
+			},
+			{
+				variantID: 2235,
+				variantColor: 'blue',
+				variantImage: './ast/vmSocks-blue.jpg'
+			}
+		],
+		cart: 0,
+	},
+	methods: {
+		addToCart(){
+			this.cart += 1;
+		},
+		removeFromCart(){
+			if(this.cart >= 1){
+				this.cart -= 1;
+			}
+		},
+		updateProduct(variantImage){
+			this.image = variantImage;
+		}
 	}
 });

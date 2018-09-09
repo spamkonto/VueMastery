@@ -25,16 +25,34 @@
 				<p v-else-if="inventory < 10 && inventory >0"> Less than 10 in the stock </p>
 				<p v-else>Temporary not available </p>
 				<span v-show="onSale">On Sale!</span>	
+				<h2>Color variants:</h2>
+				<ul>
+					<li v-for="variant in variants" :key="variant.variantID">
+						<p v-on:mouseover="updateProduct(variant.variantImage)">
+							{{ variant.variantColor }}
+						</p>
+					</li>
+				</ul>
+
 				<h2>Composition of the Product:</h2>
 				<ul>
 					<li v-for="detail in details"> {{ detail }}</li>
 				</ul>
+				
 				<h2>Sizes:</h2>
 				<ul>
 					<li v-for="size in sizes" :key="size.sizeID">
 						<p> {{ size.sizeText }} : {{ size.sizeEU }} </p>
 					</li>
 				</ul>
+
+				<div class="button-wrapper">
+					<button v-on:click="addToCart">Add to Cart</button>
+					<button v-on:click="removeFromCart">Remove from Cart</button>
+				</div>
+				<div class="cart">
+					<p>Cart({{cart}})</p>
+				</div>
 						
 			</div>
 		</div>
