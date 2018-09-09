@@ -12,26 +12,30 @@
 	<div id="app">
 		<div class="product">
 			<div class="product-image">
-				<img :src="image" :alt="aleText">
+				<img :src="image" :alt="altText">
 			</div>
 			<div class="product-info">
 				<h1> {{ product }} </h1>
 				<p> {{ description }} </p>
 				<a :href="link" :target="linkTarget">Check it OUT!</a>
 				<p v-if="inStock">In Stock</p>
-				<p v-else>Out of Stock</p>
+				<p v-else
+						:class="{ notInStock: !inStock }">
+					Out of Stock
+				</p>
 				<p v-if="inventory > 10">More then 10 items in stock</p>
 				<p v-else-if="inventory <= 10 && inventory > 0">Less then 10 items in stock</p>
 				<p v-else>Item temporary unavailable</p>
 				<span v-show="onSale">On Sale!</span>
 
 				<h2>Color variants:</h2>
-				<ul>
-					<li v-for="variant in variants" :key="variant.variantID" 
-					v-on:mouseover="updateProduct(variant.variantImage)">
-						{{ variant.variantColor }}
-					</li>
-				</ul>
+				<div class="color-box"
+							v-for="variant in variants" 
+							:key="variant.variantID" 
+							@mouseover="updateProduct(variant.variantImage)"
+							:style=" { backgroundColor: variant.variantColor} ">
+				</div>
+				
 
 				<h2>Composition of the product:</h2>
 				<ul>
@@ -47,7 +51,11 @@
 				</ul>
 				
 				<div class="button-wrapper">
-					<button v-on:click="addToCart">Add to Cart</button>
+					<button :class="{ disabledButton: !inStock}"
+								v-on:click="addToCart" 
+								:disabled="!inStock">
+						Add to Cart
+					</button>
 					<button v-on:click="removeFromCart">Remove from the Cart</button>
 				</div>
 				<div class="cart">
