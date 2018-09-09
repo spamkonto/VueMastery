@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="css/app.css">
+
+	<title>Class & Style Biding</title>
+</head>
+<body>
+	<nav class="nav-bar"></nav>
+	<div id="app">
+		<div class="product">
+			<div class="product-image">
+				<img :src="image" :alt="aleText">
+			</div>
+			<div class="product-info">
+				<h1> {{ product }} </h1>
+				<p> {{ description }} </p>
+				<a :href="link" :target="linkTarget">Check it OUT!</a>
+				<p v-if="inStock">In Stock</p>
+				<p v-else>Out of Stock</p>
+				<p v-if="inventory > 10">More then 10 items in stock</p>
+				<p v-else-if="inventory <= 10 && inventory > 0">Less then 10 items in stock</p>
+				<p v-else>Item temporary unavailable</p>
+				<span v-show="onSale">On Sale!</span>
+
+				<h2>Color variants:</h2>
+				<ul>
+					<li v-for="variant in variants" :key="variant.variantID" 
+					v-on:mouseover="updateProduct(variant.variantImage)">
+						{{ variant.variantColor }}
+					</li>
+				</ul>
+
+				<h2>Composition of the product:</h2>
+				<ul>
+					<li v-for="detail in details">
+						{{ detail }}
+					</li>
+				</ul>
+				<h2>Sizes:</h2>
+				<ul>
+					<li v-for="size in sizes" :key="size.sizeID">
+						{{ size.sizeText }} : {{ size.sizeEU }}
+					</li>
+				</ul>
+				
+				<div class="button-wrapper">
+					<button v-on:click="addToCart">Add to Cart</button>
+					<button v-on:click="removeFromCart">Remove from the Cart</button>
+				</div>
+				<div class="cart">
+					<p>Cart({{cart}})</p>
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script src="jss/app.js"></script>
+</body>
+</html>
